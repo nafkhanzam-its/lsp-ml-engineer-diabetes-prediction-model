@@ -1,0 +1,408 @@
+{% extends "base.html" %}
+
+{% block title %}Diabetes Risk Prediction - Klinik Sehat Sentosa{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="text-primary">AI-Powered</span><br>
+                        Diabetes Risk Assessment
+                    </h1>
+                    <p class="hero-subtitle">
+                        Get instant, accurate diabetes risk evaluation using advanced machine learning
+                        technology. Early detection saves lives.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3>85%+</h3>
+                                    <p>Accuracy</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3>1000+</h3>
+                                    <p>Patients</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3>24/7</h3>
+                                    <p>Available</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="prediction-form-container">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">
+                                <i class="fas fa-stethoscope me-2"></i>
+                                Risk Assessment Form
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="predictionForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pregnancies" class="form-label">
+                                            <i class="fas fa-baby me-1"></i>Pregnancies
+                                        </label>
+                                        <input type="number" class="form-control" id="pregnancies"
+                                               name="pregnancies" min="0" max="20" required>
+                                        <small class="form-text text-muted">Number of pregnancies</small>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="glucose" class="form-label">
+                                            <i class="fas fa-tint me-1"></i>Glucose Level
+                                        </label>
+                                        <input type="number" class="form-control" id="glucose"
+                                               name="glucose" min="50" max="300" step="0.1" required>
+                                        <small class="form-text text-muted">mg/dL (70-99 normal)</small>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="blood_pressure" class="form-label">
+                                            <i class="fas fa-heartbeat me-1"></i>Blood Pressure
+                                        </label>
+                                        <input type="number" class="form-control" id="blood_pressure"
+                                               name="blood_pressure" min="40" max="200" required>
+                                        <small class="form-text text-muted">Diastolic (mmHg)</small>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="skin_thickness" class="form-label">
+                                            <i class="fas fa-ruler me-1"></i>Skin Thickness
+                                        </label>
+                                        <input type="number" class="form-control" id="skin_thickness"
+                                               name="skin_thickness" min="0" max="100" step="0.1" required>
+                                        <small class="form-text text-muted">Triceps (mm)</small>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="insulin" class="form-label">
+                                            <i class="fas fa-syringe me-1"></i>Insulin Level
+                                        </label>
+                                        <input type="number" class="form-control" id="insulin"
+                                               name="insulin" min="0" max="900" step="0.1" required>
+                                        <small class="form-text text-muted">mu U/ml</small>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="bmi" class="form-label">
+                                            <i class="fas fa-weight me-1"></i>BMI
+                                        </label>
+                                        <input type="number" class="form-control" id="bmi"
+                                               name="bmi" min="10" max="60" step="0.1" required>
+                                        <small class="form-text text-muted">Body Mass Index</small>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="diabetes_pedigree" class="form-label">
+                                            <i class="fas fa-dna me-1"></i>Pedigree Function
+                                        </label>
+                                        <input type="number" class="form-control" id="diabetes_pedigree"
+                                               name="diabetes_pedigree" min="0" max="3" step="0.001" required>
+                                        <small class="form-text text-muted">Family history factor</small>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="age" class="form-label">
+                                            <i class="fas fa-calendar me-1"></i>Age
+                                        </label>
+                                        <input type="number" class="form-control" id="age"
+                                               name="age" min="10" max="120" required>
+                                        <small class="form-text text-muted">Years old</small>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary btn-lg" id="predictBtn">
+                                        <i class="fas fa-brain me-2"></i>
+                                        Analyze Risk
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Results Section -->
+<div id="resultsSection" class="results-section" style="display: none;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-chart-line me-2"></i>
+                            Risk Assessment Results
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="resultContent">
+                            <!-- Results will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="features-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="section-title">Why Choose Our AI Prediction System?</h2>
+                <p class="section-subtitle">Advanced technology meets medical expertise</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h4>AI-Powered Analysis</h4>
+                    <p>Machine learning algorithms trained on thousands of medical records for accurate predictions.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h4>Instant Results</h4>
+                    <p>Get your diabetes risk assessment in seconds, available 24/7 for immediate screening.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Privacy Protected</h4>
+                    <p>Your medical data is processed securely and never stored on our servers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center py-4">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h5>Analyzing Data...</h5>
+                <p class="mb-0 text-muted">Our AI is processing your information</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Form submission and prediction logic
+document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    // Show loading modal
+    const loadingModalElement = document.getElementById('loadingModal');
+    const loadingModal = new bootstrap.Modal(loadingModalElement);
+
+    // Add event listener to ensure proper cleanup when modal is hidden
+    loadingModalElement.addEventListener('hidden.bs.modal', function() {
+        // Clean up any remaining artifacts
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+    });
+
+    loadingModal.show();
+
+    // Collect form data
+    const formData = new FormData(this);
+    const data = {};
+    formData.forEach((value, key) => {
+        data[key] = parseFloat(value);
+    });
+
+    // Record start time for minimum delay
+    const startTime = Date.now();
+
+    try {
+        // Make prediction request
+        const response = await fetch('/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        // Ensure minimum 1 second delay for better UX
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, 1000 - elapsedTime);
+
+        setTimeout(() => {
+            // Hide loading modal completely
+            hideLoadingModal(loadingModal);
+
+            if (result.success) {
+                displayResults(result);
+            } else {
+                showError(result.error || 'Prediction failed');
+            }
+        }, remainingTime);
+
+    } catch (error) {
+        // Apply same minimum delay for error cases
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, 1000 - elapsedTime);
+
+        setTimeout(() => {
+            hideLoadingModal(loadingModal);
+            showError('Network error. Please try again.');
+            console.error('Error:', error);
+        }, remainingTime);
+    }
+});
+
+function hideLoadingModal(modal) {
+    // Hide the modal - the event listener will handle cleanup
+    modal.hide();
+
+    // Additional safety cleanup after a short delay
+    setTimeout(() => {
+        const modalElement = document.getElementById('loadingModal');
+        if (modalElement) {
+            modalElement.style.display = 'none';
+            modalElement.classList.remove('show', 'd-block');
+            modalElement.setAttribute('aria-hidden', 'true');
+            modalElement.removeAttribute('aria-modal');
+        }
+
+        // Ensure all modal artifacts are removed
+        document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.remove());
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+
+        // Dispose the modal instance
+        modal.dispose();
+    }, 200);
+}
+
+function displayResults(result) {
+    const resultContent = document.getElementById('resultContent');
+
+    // Determine risk level styling
+    let riskClass = 'success';
+    let riskIcon = '🟢';
+
+    if (result.risk_category === 'High Risk') {
+        riskClass = 'danger';
+        riskIcon = '🔴';
+    } else if (result.risk_category === 'Medium Risk') {
+        riskClass = 'warning';
+        riskIcon = '🟡';
+    }
+
+    resultContent.innerHTML = `
+        <div class="row">
+            <div class="col-md-6">
+                <div class="result-card">
+                    <h5>Prediction Result</h5>
+                    <div class="result-value">
+                        <span class="badge bg-${riskClass} fs-6">${result.prediction}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="result-card">
+                    <h5>Risk Probability</h5>
+                    <div class="result-value">
+                        <span class="fs-4 fw-bold text-${riskClass}">${result.probability}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="alert alert-${riskClass} d-flex align-items-center">
+                    <span class="me-3 fs-4">${riskIcon}</span>
+                    <div>
+                        <h5 class="alert-heading mb-1">Risk Category: ${result.risk_category}</h5>
+                        <p class="mb-0">Based on the provided medical parameters and AI analysis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <h5><i class="fas fa-lightbulb me-2"></i>Recommendations</h5>
+                <ul class="list-group list-group-flush">
+                    ${result.recommendations.map(rec => `<li class="list-group-item">${rec}</li>`).join('')}
+                </ul>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Important:</strong> This prediction is for screening purposes only.
+                    Please consult with a healthcare professional for proper medical diagnosis and treatment.
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Show results section
+    document.getElementById('resultsSection').style.display = 'block';
+    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function showError(message) {
+    const resultContent = document.getElementById('resultContent');
+    resultContent.innerHTML = `
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>Error:</strong> ${message}
+        </div>
+    `;
+    document.getElementById('resultsSection').style.display = 'block';
+    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,75 @@
+Anda seorang asesi mengajukan uji kompetensi untuk pekerjaan Data Scientist. Sebagai seorang Data Scientist, Anda diminta melakukan project work dalam bentuk "Model Prediksi Risiko Penyakit Diabetes" untuk Klinik Sehat Sentosa. 
+
+Klinik Sehat Sentosa adalah klinik kesehatan yang melayani pemeriksaan kesehatan rutin. Mereka memiliki data rekam medis pasien selama 1 tahun terakhir dan ingin mengidentifikasi pasien yang berisiko tinggi terkena diabetes untuk program pencegahan dini. 
+
+Untuk itu Anda diminta untuk membuat "Model Prediksi Risiko Penyakit Diabetes" untuk Klinik Sehat Sentosa, dengan menggunakan template yang disediakan. 
+
+Sebagai tindak lanjut untuk melakukan pekerjaan tersebut, kepada Anda diberikan informasi dan perlengkapan sebagai berikut: (terlampir) 
+
+Project Brief dari klinik 
+
+Dataset rekam medis pasien (file CSV) berisi:  
+
+Pregnancies: Number of times pregnant 
+
+Glucose: Plasma glucose concentration a 2 hours in an oral glucose tolerance test 
+
+BloodPressure: Diastolic blood pressure (mm Hg) 
+
+SkinThickness: Triceps skin fold thickness (mm) 
+
+Insulin: 2-Hour serum insulin (mu U/ml) 
+
+BMI: Body mass index (weight in kg/(height in m)^2) 
+
+DiabetesPedigreeFunction: Diabetes pedigree function 
+
+Age: Age (years) 
+
+Outcome: Class variable (0 or 1) - target prediksi 
+
+Data Dictionary penjelasan setiap kolom data 
+
+Kebijakan privasi data kesehatan 
+
+Template notebook untuk modeling 
+
+Perangkat lunak: Python, Jupyter Notebook, library machine learning (scikit-learn, pandas, matplotlib, seaborn) 
+
+Lingkup Project Work meliputi: 
+
+Menentukan tujuan teknis data science 
+
+Membuat rencana proyek data science 
+
+Membangun model 
+
+Mengevaluasi hasil pemodelan 
+
+Melakukan deployment model 
+
+Melakukan pemeliharaan model 
+
+Menerapkan program kerja pelindungan data pribadi 
+
+Melakukan laporan akhir proyek data science 
+
+Hasil pekerjaan "Model Prediksi Risiko Penyakit Diabetes" ini dipresentasikan di depan tim Asesor yang ditugaskan oleh LSP. 
+
+Dalam mempresentasikan hasil pekerjaan, Anda dilengkapi dengan: 
+
+Peralatan: Laptop, LCD dan layar 
+
+Bahan-bahan yang diperlukan untuk presentasi:  
+
+Jupyter Notebook dengan kode dan analisis lengkap 
+
+Visualisasi data dan hasil prediksi 
+
+File model yang sudah di-training 
+
+Dokumentasi teknis dan laporan hasil 
+
+Presentasi insight dan rekomendasi untuk klinik 
+
+Anda diberi waktu 120 menit untuk mengerjakan Project Work di atas dalam bentuk model prediksi risiko penyakit diabetes. 
